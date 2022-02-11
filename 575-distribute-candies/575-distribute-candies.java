@@ -1,24 +1,11 @@
 class Solution {
     public int distributeCandies(int[] candyType) {
-        
-        HashSet<Integer> hs = new HashSet<Integer>();
-        
-        if(candyType.length == 0) return 0;
-        
-        int type = 0;
-        int max = candyType.length/2;
-        
-        for(int i : candyType){
-            if(hs.contains(i)){
-                continue;
-            }
-            
-            else{
-                hs.add(i);
-                type++;
-            }
+        // Create an empty Hash Set, and add each candy into it.
+        Set<Integer> uniqueCandiesSet = new HashSet<>();
+        for (int candy: candyType) {
+            uniqueCandiesSet.add(candy);
         }
-        
-        return Math.min(type,max);
+        // Then, find the answer in the same way as before.
+        return Math.min(uniqueCandiesSet.size(), candyType.length / 2);
     }
 }
