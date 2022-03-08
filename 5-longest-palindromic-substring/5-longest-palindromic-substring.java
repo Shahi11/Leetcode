@@ -17,7 +17,7 @@ class Solution {
     }
     
     public int expand(String s, int start, int end){
-        if(s == null || start > end) return 0;
+        if(s == null) return 0;
         
         while(start >= 0 && end < s.length() && s.charAt(start) == s.charAt(end)){
             start--;
