@@ -3,27 +3,23 @@ class Solution {
         
         int n = height.length;
         
-        int[] l = new int[n];
-        int[] r = new int[n];
-        int max = 0, sum =0;
-        for(int i = 0 ; i < n ; i++){
-            max = Math.max(height[i],max);
-            l[i] = max;
-        }
+        int l = 0, r = n-1, lmax = 0, rmax = 0, sum = 0;
         
-        max =0;
-        for(int j = n-1 ; j >=0; j--){
-            max =Math.max(height[j],max);
-            r[j] = max;
+        while(l <=r){
+            if(height[l] <= height[r]){
+                if(height[l] > lmax) lmax = height[l];
+                sum += lmax -height[l];
+                l++;
+            }
+            
+            else{
+                if(height[r] > rmax) rmax = height[r];
+                sum += rmax - height[r];
+                r--;
+                
+            }
         }
-        
-        for(int i = 0 ; i < n ; i++){
-            sum += (Math.min(l[i],r[i])- height[i]);
-        }
- 
-      
         return sum;
-        
         
     }
 }
