@@ -4,7 +4,7 @@ class Solution {
         
         int count =0;
         for(int i = 0 ; i+1< nums.length; i=i+2){
-            count += Math.min(nums[i], nums[i+1]);
+            count += nums[i];
         }
         return count;
     }
