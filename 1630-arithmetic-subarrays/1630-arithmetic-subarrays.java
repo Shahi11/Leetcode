@@ -8,6 +8,7 @@ class Solution {
             for(int j = l[i]; j<= r[i]; j++){
                 temp[k++] = nums[j];
             }
+            
             Arrays.sort(temp);
             int gap = temp[1]-temp[0];
             for(int x = 2; x < temp.length; x++){
@@ -17,6 +18,7 @@ class Solution {
                 }    
             }
         }
+        // Converting array to list
         ArrayList<Boolean> bres = new ArrayList<>();
         for(int i = 0; i<res.length; i++)
             bres.add(res[i]);
