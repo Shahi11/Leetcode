@@ -1,27 +1,28 @@
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
-         ArrayList<List<String>> arr = new ArrayList<>();
-        Map<String, List<String>> map = new HashMap<>();
-        for(int i = 0 ; i< strs.length; i++){
-            String st = strs[i];
-            char[] ch = st.toCharArray();
-            Arrays.sort(ch);
-            String sorted =String.valueOf(ch);
-            if(map.containsKey(sorted)){
-                List<String> sol = map.get(sorted);
-                sol.add(st);
-                map.put(sorted,sol);
-            }
+        
+        List<List<String>> res = new ArrayList<>();
+        
+        Map<String,List<String>> map = new HashMap<>();
+        
+        for(String s : strs){
+           char[] ch = s.toCharArray();
+           Arrays.sort(ch);
+           String ns = String.valueOf(ch);
+           if(map.containsKey(ns)){
+                map.get(ns).add(s);    
+           }
             else{
-                List<String> sol = new ArrayList<>();
-                sol.add(st);
-                map.put(sorted,sol);
+                List<String> l = new ArrayList<>();
+                l.add(s);
+                map.put(ns,l); 
             }
         }
         
         map.forEach((k,v)->{
-           arr.add(v); 
+            res.add(v);
         });
-        return arr;
+        
+        return res;
     }
 }
