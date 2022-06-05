@@ -1,12 +1,13 @@
 class Solution {
     public boolean canJump(int[] nums) {
+        int ind = nums.length-1;
         
-        int index = nums.length-1;
-        for(int i = nums.length-1; i >=0; i--){
-            if(i+nums[i] >= index)
-                index = i;
+        for(int i = ind; i >= 0 ; i--){
+            
+            if(i + nums[i] >= ind)
+                ind = i;
         }
         
-        return index == 0;
+        return ind == 0;
     }
 }
