@@ -1,45 +1,45 @@
 class Solution {
     public String minWindow(String s, String t) {
         
-        if(s == null || t == null || s.isEmpty() || t.isEmpty()) return "";
         
         HashMap<Character, Integer> map = new HashMap<>();
         
-        for(int i = 0 ; i< t.length();i++){
-            map.put(t.charAt(i), map.getOrDefault(t.charAt(i),0)+1);
+        for(int i = 0 ; i < t.length(); i++){
+            map.put(t.charAt(i), map.getOrDefault(t.charAt(i), 0)+1);
         }
         
-        int i =0, j = 0 , start= 0 , end = s.length()-1, length = s.length(), count = map.size();
+        int i = 0, j = 0, start = 0,  end = s.length()-1, count = map.size(), len = s.length();
         boolean found = false;
         
-        while(j<s.length()){
+        while(j < s.length()){
+            char c = s.charAt(j++);
             
-            char ch = s.charAt(j++);
-            if(map.containsKey(ch)){
-                map.put(ch,map.get(ch)-1);
-                if(map.get(ch) == 0) count = count -1;              
+            if(map.containsKey(c)){
+                map.put(c , map.getOrDefault(c,0)-1);
+                if(map.get(c) == 0)
+                    count--;
             }
             
-            if(count > 0) continue;
+            if(count > 0)
+                continue;
             
-            while(count == 0) {
-                ch = s.charAt(i++);
+            while(count == 0){
+                char ch = s.charAt(i++);
                 if(map.containsKey(ch)){
-                    map.put(ch,map.get(ch)+1);
-                    if(map.get(ch) > 0) count = count +1;
+                    map.put(ch, map.getOrDefault(ch,0)+1);
+                    if(map.get(ch)>0)
+                        count++;
                 }
             }
             
-            if((j-i) < length){
+            if(j-i < len){
                 start = i;
-                end = j;
-                length = j-i;
-                found =true;
+                end = j; 
+                len = j-i;
+                found = true;
             }
-            
         }
         
-        return found ? s.substring(start-1,end) : ""; 
-        
+        return found ? s.substring(start-1,end) : "";
     }
 }
