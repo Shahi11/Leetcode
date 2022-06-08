@@ -1,12 +1,17 @@
 class Solution {
- public boolean isPalindrome(String s) {
-    StringBuilder builder = new StringBuilder();
+    public boolean isPalindrome(String s) {
+        
+        StringBuilder st = new StringBuilder();
+        char[] w = s.toCharArray();
+        
+        for(char c : w){
+            if(Character.isLetterOrDigit(c))
+                st.append(Character.toLowerCase(c));
+        }
+        
+        s = st.toString();
 
-     
-     s.chars().filter(c->Character.isLetterOrDigit(c))
-         .mapToObj(c->Character.toLowerCase((char)c))
-         .forEach(builder::append);
-
-    return builder.toString().equals(builder.reverse().toString());
-  }
+        
+        return s.equals(st.reverse().toString());
+    }
 }
