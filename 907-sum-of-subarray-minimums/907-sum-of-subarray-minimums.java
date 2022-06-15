@@ -43,7 +43,7 @@ class Solution {
         }
         
         
-        long res = 0, mod = (int)Math.pow(10,9)+7;
+        long res = 0;
         for (int i = 0; i < n; i++)
             res = (res + (long)arr[i] * left[i] * right[i] ) % mod;
         return (int)res;
