@@ -1,29 +1,28 @@
 class Solution {
     public String longestPalindrome(String s) {
-    int len = s.length();
-    int st = 0, e =0;
-    for(int i = 0; i < len; i++){
         
-        int l1 = checkPallindrome(i,i,s);
-        int l2 = checkPallindrome(i,i+1,s);
-        int l = Math.max(l1,l2);
-        if(l > e-st){
-            e = i+l/2;
-            st = i-((l-1)/2);
+       int left = 0, right = 0; 
+        for(int i = 0 ; i < s.length(); i++){
+            int l1 = palli(i,i+1,s);
+            int l2 = palli(i,i,s);
+            int l = Math.max(l1,l2);
+        if(l > right - left){
+            left = i - (l-1)/2;
+            right = i + l/2;
+            
         }
-    }
+        }
         
-     return s.substring(st,e+1);   
-        
+        return s.substring(left, right+1);
     }
     
-    public int checkPallindrome(int s, int e, String ss){
-        int count = 0;
-        while(s>=0 && e<ss.length() && ss.charAt(s)==ss.charAt(e)){
-            s--;
-            e++;
-        }
+    public int palli(int l, int r, String s){
         
-        return e-s-1;
-    } 
+        while(l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)){
+            l--;
+            r++;
+        }
+
+        return r-l-1;
+    }
 }
