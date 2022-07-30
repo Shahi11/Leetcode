@@ -16,28 +16,20 @@
 class Solution {
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> result = new ArrayList<>();
-        
-        if(root == null)
-            return result;
-        
-        TreeNode cur = root;
-        Stack<TreeNode> st = new Stack<>();
-        
-        while(cur != null || !st.isEmpty()){
-            
-            while(cur != null){
-                st.push(cur);
-                cur = cur.left;
-            }
-            
-            cur = st.pop();
-            result.add(cur.val);
-            cur = cur.right;
-        }
-        
+  
+        rec(root, result);
         return result;
+    
+    }
+    
+    public void rec(TreeNode node,List<Integer> res){
+        if(node == null)
+            return;
         
-            
-        
+        rec(node.left, res);
+        res.add(node.val);
+        rec(node.right, res);
     }
 }
+
+// O(N) we visit each node once
