@@ -13,33 +13,44 @@
  *     }
  * }
  */
+
+class tuple{
+    TreeNode node;
+    int level;
+    tuple(TreeNode node, int level){
+        this.node = node;
+        this.level = level;
+    }
+        
+}
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
-        ArrayList<List<Integer>> result = new ArrayList<>();
-        if(root == null) return result;
-        LinkedList<TreeNode> ls = new LinkedList<>();
-        ls.add(root);
-        while(!ls.isEmpty()){
-         
-            List<Integer> tmp = new ArrayList<>();
-            int size = ls.size();
-            for(int i = 0 ; i<size;i++){
-                TreeNode curr = ls.remove();
-                tmp.add(curr.val);
-            
-                if(curr.left != null){
-                    ls.add(curr.left);
-                }
-                if(curr.right != null){
-                    ls.add(curr.right);
-                }
+        List<List<Integer>> res= new ArrayList<>();
+        if(root == null)
+            return res;
+        TreeMap<Integer, List<Integer>> map = new TreeMap<>();
+        Queue<tuple> q = new LinkedList<>();
+        q.add(new tuple(root,0));
+        while(!q.isEmpty()){
+            tuple t = q.remove();
+            if(!map.containsKey(t.level)){
+               map.put(t.level, new ArrayList<>()) ;
             }
             
-            result.add(tmp);
+            List<Integer> temp = map.get(t.level);
+            temp.add(t.node.val);
+            map.put(t.level, temp);
             
+            if(t.node.left != null)
+                q.add(new tuple(t.node.left,t.level+1));
+
+            if(t.node.right != null)
+                q.add(new tuple(t.node.right,t.level+1));
         }
-        
-        
-        return result;
+  
+        for(List<Integer> ls : map.values())
+            res.add(ls);
+            
+        return res;
     }
 }
