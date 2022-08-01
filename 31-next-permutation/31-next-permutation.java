@@ -1,31 +1,31 @@
 class Solution {
     public void nextPermutation(int[] nums) {
+        int n = nums.length-1;
+        int i = n-1;
         
-        if(nums == null || nums.length <= 1) return;
-        int i = nums.length -2; 
+        while(i >= 0 && nums[i+1] <= nums[i]) i--;
         
-        while(i >=0 && nums[i+1]<=nums[i]) 
-            i--;
-        if(i >=0){
-            int j = nums.length-1;
-            while(nums[j]<=nums[i]) j--;
+        if(i >= 0){
+            int j = n;
+            while( j >= 0 && nums[j] <= nums[i])j--;
             swap(nums,i,j);
         }
         
-        reverse(nums,i+1,nums.length-1);
-
-    }
-    
-    
-    void swap(int[] nums, int i, int j){
-        int temp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = temp;
-    }
-    
-    void reverse(int[] nums, int i, int j){
-        while(i<j){
-            swap(nums,i++,j--);
+        int start = i+1, end = n;
+        while(start < end)
+        {
+            swap(nums, start++, end--);
         }
+        
+        
+        
+        
+    }
+    
+    
+    public void swap(int[] nums, int i, int j){
+            int temp = nums[j];
+            nums[j] = nums[i];
+            nums[i] = temp;
     }
 }
