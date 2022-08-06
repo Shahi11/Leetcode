@@ -1,41 +1,48 @@
 class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
   
-        int[] topo = new int[numCourses];
-        int[] indeg = new int[numCourses];
+        boolean[] visit = new boolean[numCourses];
+        boolean[] dfsvisit = new boolean[numCourses];
+        Arrays.fill(visit, false);
+        Arrays.fill(dfsvisit, false);
         
         ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
         
         for(int i = 0 ; i <numCourses; i++)
             adj.add(new ArrayList<>());
         
- 
-        
         for(int[] i : prerequisites){
-            indeg[i[1]]++;
             adj.get(i[0]).add(i[1]);
         }
-               
         
-        Queue<Integer> q = new LinkedList<>();
         for(int i = 0 ; i < numCourses; i++){
-            if(indeg[i] == 0)
-                q.add(i);                
+            if(cycle(i, adj, visit, dfsvisit))
+                return false;
         }
         
-        int c = 0;
-        while(!q.isEmpty()){
-            c++;
-            int n = q.poll();
-            for(int i : adj.get(n)){
-                indeg[i]--;
-                if(indeg[i] == 0)
-                    q.add(i);
+        return true;
+  
+
+    }
+    
+    public boolean cycle(int node, ArrayList<ArrayList<Integer>> adj,  boolean[] visit,
+                        boolean[] dfsvisit){
+        visit[node] = true;
+        dfsvisit[node] = true;
+        
+        for(int it : adj.get(node)){
+            if(visit[it] == false){
+                if(cycle(it, adj, visit, dfsvisit))
+                    return true;
+            }
+        else{
+            if(dfsvisit[it] == true)
+                return true;
             }
         }
-        
-        return c == numCourses;
-
+        dfsvisit[node] = false;
+        return false;
+            
     }
 }
 
