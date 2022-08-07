@@ -1,34 +1,30 @@
 class Solution {
     public List<String> subdomainVisits(String[] cpdomains) {
         
-        HashMap<String, Integer> map = new HashMap<>();
-        List<String> res = new ArrayList<>();
-
-        for(String s: cpdomains){
+        List<String> result = new LinkedList<>();
+        HashMap<String, Integer> hmap = new HashMap<>();
+        
+        for(int i = 0; i < cpdomains.length; i++){
+            String[] stringData = cpdomains[i].split(" ");
+            String[] str = stringData[1].split("\\.");
+            String subDomains = "";
             
-            String[] temp = s.split(" ");
-            
-            String[] domain = temp[1].split("[.]");
-            
-            StringBuilder st = new StringBuilder();
-
-            st.append(domain[domain.length-1]);
-                        map.put(domain[domain.length-1], map.getOrDefault(st.toString(),0)+Integer.parseInt(temp[0]));
-            
-            for(int i = domain.length-2; i >= 0; i--){
-                st.insert(0,".");
-                st.insert(0,domain[i]);
-                map.put(st.toString(), map.getOrDefault(st.toString(),0)+Integer.parseInt(temp[0]));
+            for(int j = str.length-1; j >= 0; j--){
+                subDomains = str[j] + subDomains;
+                    
+                if(!hmap.containsKey(subDomains))
+                    hmap.put(subDomains, Integer.parseInt(stringData[0]));
+                else
+                    hmap.put(subDomains, hmap.get(subDomains) + Integer.parseInt(stringData[0]));
+                subDomains = "." + subDomains;
             }
             
         }
-            
-            
-            for(Map.Entry<String, Integer> et : map.entrySet()){
-                res.add(String.valueOf(et.getValue()) + " "+ et.getKey());
-            }
-            
-            return res;
-
+        
+        for(Map.Entry<String, Integer> entry: hmap.entrySet()){
+            result.add(entry.getValue() + " " + entry.getKey());
+        }
+        
+        return result;
     }
 }
