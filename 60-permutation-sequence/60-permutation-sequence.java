@@ -1,26 +1,35 @@
 class Solution {
     public String getPermutation(int n, int k) {
         
-        List<Integer> num = new ArrayList<>();
         int fact = 1;
-        for(int i = 1; i< n ; i++){
+        List<Integer> nums = new ArrayList<>();
+        for(int i = 1 ; i < n; i++){
             fact = fact*i;
-            num.add(i);
+            nums.add(i);
         }
-        num.add(n);
+        
+        nums.add(n);
+        
         k = k-1;
-        String res = "";
+        String st = "";
+        
         while(true){
-            res += num.get(k/fact);
-            num.remove(k/fact);
+            st += nums.get(k/fact);
+            nums.remove(k/fact);
             
-            if(num.isEmpty()) break;
+            if(nums.isEmpty())
+                break;
             
-            k %= fact;
-            fact /= num.size();
+            k = k % fact;
+            fact /= nums.size();
             
         }
         
-        return res;
+        return st;
+        
     }
 }
+
+
+//TC: O(n^2)
+//SC: O(n)
