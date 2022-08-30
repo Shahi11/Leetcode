@@ -2,10 +2,7 @@ class Solution {
     int[][][] dp;
     public int findMaxForm(String[] strs, int m, int n) {
      dp = new int[m+1][n+1][strs.length];
-    // for(int[][] r: dp){
-    //     for(int[] row: r) 
-    //         Arrays.fill(row, -1);
-    //     }
+
         return solve(strs, m, n, 0);
     }
     
