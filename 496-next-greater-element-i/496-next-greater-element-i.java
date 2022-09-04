@@ -21,10 +21,12 @@ class Solution {
         for(int i = 0 ; i < nums1.length; i++){
             res[i] = nxt[map.get(nums1[i])];
         }
-        
-        
+
         return res;
         
         
     }
 }
+
+// T : O(n)
+//
